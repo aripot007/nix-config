@@ -26,7 +26,7 @@
       if [[ -e /mnt/@rootfs ]]; then
           mkdir -p /mnt/old_rootfs
           timestamp=$(date --date="@$(stat -c %Y /mnt/@rootfs)" "+%Y-%m-%d_%H-%M-%S")
-          btrfs subvolume snapshot -r "/mnt/@rootfs /mnt/old_rootfs/@$timestamp
+          btrfs subvolume snapshot -r /mnt/@rootfs "/mnt/old_rootfs/@$timestamp"
       fi
 
       # Recursively delete all nested subvolumes inside a subvolume snapshot
