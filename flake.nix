@@ -12,9 +12,7 @@
         impermanence.nixosModules.impermanence
         ./disko-config.nix
         ./configuration.nix
-        {
-          fileSystems."/persist".neededForBoot = true;
-        }
+        ./impermanence.nix
       ];
     };
   };
