@@ -58,16 +58,18 @@
   environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
+      "/var/lib/nixos"
+      "/etc/NetworkManager/system-connections"
     ];
     files = [
-        "/etc/machine-id"
+      "/etc/machine-id"
     ];
   };
 
   environment.persistence."/logs" = {
     hideMounts = true;
     directories = [
-        "/var/log"
+      "/var/log"
     ];
   };
 }
