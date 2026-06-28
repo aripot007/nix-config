@@ -24,7 +24,8 @@
       mkdir -p /mnt
 
       echo "Rolling back rootfs to blank state"
-      
+      mount -o subvol=/ /dev/mapper/vg0-system /mnt
+
       # Create a snapshot of the dirty rootfs
       if [[ -e /mnt/@rootfs ]]; then
           mkdir -p /mnt/old_rootfs
@@ -47,7 +48,9 @@
       }
 
       echo "Restoring blank @rootfs ..."
-      delete_subvolume_recursively "@rootfs"
+      if [[ -e /mnt/@rootfs ]]; then
+          delete_subvolume_recursively "@rootfs"
+      fi
       btrfs subvolume snapshot /mnt/@blank-rootfs /mnt/@rootfs
 
       echo "Cleaning up old rootfs backup snapshots ..."
