@@ -10,7 +10,13 @@
   boot.initrd.systemd.services.rollback = {
     description = "Rollback BTRFS root subvolume";
     wantedBy = ["initrd.target"];
-    after = ["local-fs-pre.target"];
+    requires = [
+      "dev-mapper-crypted.device"
+    ];
+    after = [
+      "local-fs-pre.target"
+      "dev-mapper-crypted.device"
+    ];
     before = ["sysroot.mount"];
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";
@@ -20,7 +26,21 @@
       echo "Rolling back rootfs to blank state"
 
       # Mount btrfs root to manipulate subvolumes
-      mount -o subvol=/ /dev/vg0/system /mnt
+      mount -o subvol=/ /dev/mapper/vg0-system /mnt
+
+      echo "======== mount ========"
+      mount
+
+      echo "======== btrfs filesystem show /mnt ======="
+      btrfs filesystem show /mnt
+
+
+      echo "======== btrfs subvolume list -o /mnt ======="
+      btrfs subvolume list -o /mnt
+
+      echo "======= test create subvolume ======="
+      timestamp=$(date --date="@$(stat -c %Y /mnt/@rootfs)" "+%Y-%m-%d_%H-%M-%S")
+      btrfs subvolume create "/mnt/old_rootfs/@$timestamp"
 
       # Create a snapshot of the dirty rootfs
       if [[ -e /mnt/@rootfs ]]; then
