@@ -22,7 +22,7 @@
             isNormalUser = true;
             extraGroups = [ "wheel" "video" ];
             initialPassword = "password";
-            packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
+            packages = [ inputs.home-manager.packages.${nixpkgs.system}.default ];
           };
         }
       ];
