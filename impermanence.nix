@@ -32,7 +32,7 @@
       # Recursively delete all nested subvolumes inside a subvolume snapshot
       delete_subvolume_recursively() {
           echo "Deleting /$1 subvolume ..."
-          btrfs subvolume list -o "$1" |
+          btrfs subvolume list -o "/mnt/$1" |
           cut -f9 -d' ' |
           while read subvolume; do
               echo "+ Deleting /$subvolume subvolume ..."
