@@ -25,22 +25,10 @@
 
       echo "Rolling back rootfs to blank state"
 
-      # Mount btrfs root to manipulate subvolumes
-      mount -o subvol=/ /dev/mapper/vg0-system /mnt
-
-      echo "======== mount ========"
-      mount
-
-      echo "======== btrfs filesystem show /mnt ======="
-      btrfs filesystem show /mnt
-
-
-      echo "======== btrfs subvolume list -o /mnt ======="
-      btrfs subvolume list -o /mnt
-
       echo "======= test create subvolume ======="
-      timestamp=$(date --date="@$(stat -c %Y /mnt/@rootfs)" "+%Y-%m-%d_%H-%M-%S")
-      btrfs subvolume create "/mnt/old_rootfs/@$timestamp"
+      rootfs_date=$(date --date="@$(stat -c %Y /mnt/@rootfs)" "+%Y-%m-%d_%H-%M-%S")
+      timestamp=$(date "+%s")
+      btrfs subvolume create "/mnt/@''${rootfs_date}_$timestamp"
 
       # Create a snapshot of the dirty rootfs
       if [[ -e /mnt/@rootfs ]]; then
