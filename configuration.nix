@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -37,13 +37,6 @@
 
   # Touchpad support
   # services.libinput.enable = true;
-
-  users.users.aristide = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "video" ];
-    initialPassword = "password";
-    packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
-  };
 
   environment.systemPackages = with pkgs; [
     vim

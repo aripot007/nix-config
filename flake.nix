@@ -17,6 +17,14 @@
         ./disko-config.nix
         ./configuration.nix
         ./impermanence.nix
+        {
+          users.users.aristide = {
+            isNormalUser = true;
+            extraGroups = [ "wheel" "video" ];
+            initialPassword = "password";
+            packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
+          };
+        }
       ];
     };
 
