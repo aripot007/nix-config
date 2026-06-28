@@ -38,12 +38,12 @@
               echo "+ Deleting /$subvolume subvolume ..."
               btrfs subvolume delete "/mnt/$subvolume"
           done &&
-          echo "+ Deleting /$1 subvolume ..." &&
+          echo "+ Deleting $1 subvolume ..." &&
           btrfs subvolume delete "/mnt/$1"
       }
 
       echo "Restoring blank @rootfs ..."
-      delete_subvolume_recursively "/mnt/@rootfs"
+      delete_subvolume_recursively "@rootfs"
       btrfs subvolume snapshot /mnt/@blank-rootfs /mnt/@rootfs
 
       echo "Cleaning up old rootfs backup snapshots ..."
