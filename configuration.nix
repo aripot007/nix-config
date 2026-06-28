@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
   ];
 
+  security.sudo.extraConfig = "Defaults lecture = never"
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader
