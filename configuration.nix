@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  security.sudo.extraConfig = "Defaults lecture = never"
+  security.sudo.extraConfig = "Defaults lecture = never";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -25,6 +25,11 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  security.polkit.enable = true;
+  security.pam.services.swaylock = {};
+
+  programs.sway.enable = true;
+
   # Configure keymaps
   console.keyMap = "fr";
   services.xserver.xkb.layout = "fr";
@@ -35,12 +40,9 @@
 
   users.users.aristide = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "video" ];
     initialPassword = "password";
-    packages = with pkgs; [
-      cowsay
-      lolcat
-    ];
+    packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
   };
 
   environment.systemPackages = with pkgs; [
