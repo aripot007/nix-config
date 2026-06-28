@@ -24,17 +24,13 @@
       mkdir -p /mnt
 
       echo "Rolling back rootfs to blank state"
-
-      echo "======= test create subvolume ======="
-      rootfs_date=$(date --date="@$(stat -c %Y /mnt/@rootfs)" "+%Y-%m-%d_%H-%M-%S")
-      timestamp=$(date "+%s")
-      btrfs subvolume create "/mnt/@''${rootfs_date}_$timestamp"
-
+      
       # Create a snapshot of the dirty rootfs
       if [[ -e /mnt/@rootfs ]]; then
           mkdir -p /mnt/old_rootfs
-          timestamp=$(date --date="@$(stat -c %Y /mnt/@rootfs)" "+%Y-%m-%d_%H-%M-%S")
-          btrfs subvolume snapshot -r /mnt/@rootfs "/mnt/old_rootfs/@$timestamp"
+          rootfs_date=$(date --date="@$(stat -c %Y /mnt/@rootfs)" "+%Y-%m-%d_%H-%M-%S")
+          timestamp=$(date "+%s")
+          btrfs subvolume snapshot -r /mnt/@rootfs "/mnt/old_rootfs/@''${rootfs_date}_$timestamp"
       fi
 
       # Recursively delete all nested subvolumes inside a subvolume snapshot
