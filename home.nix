@@ -72,7 +72,7 @@ in
              timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
              before-sleep 'swaylock -f -i ${defaultWallpaper} -u'
 
-    input "10248:260:ASUF1204:00_2808:0104_Touchpad" {
+    input type:touchpad {
         dwt enabled
         tap enabled
         natural_scroll enabled
