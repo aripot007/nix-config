@@ -25,7 +25,7 @@ in
     waybar
     swaylock
     # foot
-    # fuzzel
+    fuzzel
     # swaync
     # swayidle
     # grim
@@ -79,7 +79,7 @@ in
         middle_emulation enabled
     }
 
-    input "2821:6582:Asus_Keyboard" {
+    input type:keyboard {
         xkb_layout "fr"
         xkb_variant "azerty"
         xkb_numlock enabled
