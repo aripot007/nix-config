@@ -1,6 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixos-hardware = {
+      url = "github:NixOs/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     disko.url = "github:nix-community/disko/latest";
@@ -8,12 +12,13 @@
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.home-manager.follows = "home-manager";
   };
-  outputs = inputs@{ self, disko, impermanence, nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ self, nixos-hardware, disko, impermanence, nixpkgs, home-manager, ... }: {
     
     nixosConfigurations.tartiflex = nixpkgs.lib.nixosSystem {
       modules = [ 
         disko.nixosModules.disko
         impermanence.nixosModules.impermanence
+        nixos-hardware.nixosModules.framework-16-amd-ai-300-series
         ./disko-config.nix
         ./configuration.nix
         ./impermanence.nix
@@ -24,6 +29,8 @@
             initialPassword = "password";
             packages = [ inputs.home-manager.packages."x86_64-linux".default ];
           };
+        
+          hardware.inputmodule.enable = true;
         }
       ];
     };
