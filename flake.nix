@@ -16,10 +16,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, nixos-hardware, disko, impermanence, nixpkgs, home-manager, opencode, ... }: {
-    
+  outputs = inputs @ {
+    self,
+    nixos-hardware,
+    disko,
+    impermanence,
+    nixpkgs,
+    home-manager,
+    opencode,
+    ...
+  }: {
     nixosConfigurations.tartiflex = nixpkgs.lib.nixosSystem {
-      modules = [ 
+      modules = [
         disko.nixosModules.disko
         impermanence.nixosModules.impermanence
         nixos-hardware.nixosModules.framework-16-amd-ai-300-series
@@ -29,11 +37,11 @@
         {
           users.users.aristide = {
             isNormalUser = true;
-            extraGroups = [ "wheel" "video" ];
+            extraGroups = ["wheel" "video"];
             initialPassword = "password";
-            packages = [ inputs.home-manager.packages."x86_64-linux".default ];
+            packages = [inputs.home-manager.packages."x86_64-linux".default];
           };
-        
+
           hardware.inputmodule.enable = true;
         }
       ];
@@ -42,10 +50,11 @@
     homeConfigurations = {
       "aristide@tartiflex" = home-manager.lib.homeManagerConfiguration {
         # Home-manager requires 'pkgs' instance
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; 
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs;};
         modules = [
           ./home.nix
+          ./git.nix
         ];
       };
     };

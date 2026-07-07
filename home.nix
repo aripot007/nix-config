@@ -64,7 +64,7 @@ in {
     # alsa-utils
     # pulseaudio
     wob
-    inputs.opencode.packages.${pkgs.system}.default
+    # inputs.opencode.packages.${pkgs.system}.default
   ];
 
   xdg.configFile."sway/config".text = ''
