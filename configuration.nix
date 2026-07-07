@@ -38,6 +38,19 @@
   # Touchpad support
   # services.libinput.enable = true;
 
+  fonts = {
+    enableDefaultPackages = true;
+    fontconfig = {
+      antialias = true;
+      hinting.enable = true;
+      hinting.autohint = true;
+    };
+    packages = with pkgs; [
+      nerd-fonts.symbols-only
+      nerd-fonts.jetbrains-mono
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     vim
     wget

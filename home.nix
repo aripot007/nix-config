@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
-
-let
-  defaultWallpaper = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray.gnomeFilePath}";
-in
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
+  defaultWallpaper = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray.gnomeFilePath}";
+  dotfiles_dir = "${config.home.homeDirectory}/.config/nixos";
+in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "aristide";
@@ -20,6 +23,31 @@ in
   home.stateVersion = "26.05";
 
   programs.home-manager.enable = true;
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+
+    # Prevent home-manager from trying to write in the out-of-store config files
+    sideloadInitLua = true;
+
+    extraPackages = with pkgs; [
+      ripgrep
+      fd
+      gcc
+      gnumake
+      tree-sitter
+      lua-language-server
+      nil
+      alejandra
+      stylua
+    ];
+  };
+
+  programs.lazygit.enable = true;
+
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles_dir}/nvim";
 
   home.packages = with pkgs; [
     waybar
@@ -36,6 +64,7 @@ in
     # alsa-utils
     # pulseaudio
     wob
+    inputs.opencode.packages.${pkgs.system}.default
   ];
 
   xdg.configFile."sway/config".text = ''
@@ -60,12 +89,6 @@ in
     exec wl-paste -t text --watch clipman store --no-persist
 
     output "*" bg ${defaultWallpaper} fill
-
-    output "HDMI-A-1" {
-        mode --custom 1920x1080@60Hz
-        scale 1
-        max_render_time off
-    }
 
     exec swayidle -w \
              timeout 300 'swaylock -f -c 000000' \
@@ -245,7 +268,7 @@ in
 
     gaps inner 3
 
-    client.focused #51F077E6 #51F077E6 #2A2A2A #AE00FF 
+    client.focused #51F077E6 #51F077E6 #2A2A2A #AE00FF
     client.unfocused #333333E6 #222222E6 #B5B5B5
     client.focused_inactive #333333E6 #5F676AE6 #FFFFFF
     client.urgent #2F343AE6 #900000E6 #FFFFFF

@@ -11,8 +11,12 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.home-manager.follows = "home-manager";
+    opencode = {
+      url = "github:anomalyco/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs@{ self, nixos-hardware, disko, impermanence, nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ self, nixos-hardware, disko, impermanence, nixpkgs, home-manager, opencode, ... }: {
     
     nixosConfigurations.tartiflex = nixpkgs.lib.nixosSystem {
       modules = [ 
