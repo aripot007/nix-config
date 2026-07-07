@@ -42,6 +42,7 @@ in {
       nil
       alejandra
       stylua
+      shfmt
     ];
   };
 
