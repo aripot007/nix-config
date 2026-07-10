@@ -68,6 +68,8 @@ in {
     # inputs.opencode.packages.${pkgs.system}.default
   ];
 
+  programs.kitty.enable = true;
+
   xdg.configFile."sway/config".text = ''
     exec {
         systemctl --user import-environment
