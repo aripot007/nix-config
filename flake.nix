@@ -38,9 +38,12 @@
           users.users.aristide = {
             isNormalUser = true;
             extraGroups = ["wheel" "video"];
-            initialPassword = "password";
             packages = [inputs.home-manager.packages."x86_64-linux".default];
+            initialHashedPassword = "$y$j9T$Lvd3ywzpKCyzP1mv/2DTH0$wOMAjMrBWDZUHXArA7061AwnYsPKcF0vzOD6ZPxu6kD";
+            hashedPasswordFile = "/persist/passwords/aristide";
           };
+
+          users.mutableUsers = false;
 
           hardware.inputmodule.enable = true;
         }
