@@ -36,20 +36,22 @@
 
       # Recursively delete all nested subvolumes inside a subvolume snapshot
       delete_subvolume_recursively() {
-          echo "Recursively deleting /$1 subvolume ..."
-          btrfs subvolume list -o "/mnt/$1" |
+          echo "Recursively deleting $1 subvolume ..."
+          root=$(dirname "$1")
+          btrfs subvolume list -o "$1" |
           cut -f9 -d' ' |
           while read subvolume; do
-              echo "+ Deleting /mnt/$subvolume subvolume ..."
-              btrfs subvolume delete "/mnt/$subvolume"
+              full_path=''${root}/''${subvolume}
+              echo "+ Deleting $full_path subvolume ..."
+              btrfs subvolume delete "$full_path"
           done &&
-          echo "+ Deleting /mnt/$1 subvolume ..." &&
-          btrfs subvolume delete "/mnt/$1"
+          echo "=> Deleting $1 subvolume ..." &&
+          btrfs subvolume delete "$1"
       }
 
       echo "Restoring blank @rootfs ..."
       if [[ -e /mnt/@rootfs ]]; then
-          delete_subvolume_recursively "@rootfs"
+          delete_subvolume_recursively "/mnt/@rootfs"
       fi
       btrfs subvolume snapshot /mnt/@blank-rootfs /mnt/@rootfs
 
@@ -57,7 +59,7 @@
       for i in $(find /mnt/old_rootfs/ -maxdepth 1 -mtime +15); do
           delete_subvolume_recursively "$i"
       done
-      
+
       umount /mnt
     '';
   };
