@@ -118,6 +118,10 @@ in {
         pointer_accel -0.2
     }
 
+    output "eDP-2" {
+        scale 1.5
+    }
+
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+a kill
     bindsym $mod+d exec $menu
