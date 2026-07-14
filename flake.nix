@@ -15,6 +15,7 @@
       url = "github:anomalyco/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri.url = "github:sodiboo/niri-flake";
   };
   outputs = inputs @ {
     self,
@@ -58,6 +59,8 @@
         modules = [
           ./home.nix
           ./git.nix
+          ./firefox.nix
+          ./niri.nix
         ];
       };
     };
