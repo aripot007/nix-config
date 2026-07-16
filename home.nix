@@ -39,6 +39,7 @@ in {
       gnumake
       tree-sitter
       lua-language-server
+      yaml-language-server
       nil
       alejandra
       stylua
