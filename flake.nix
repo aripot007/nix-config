@@ -16,6 +16,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri.url = "github:sodiboo/niri-flake";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs @ {
     self,
@@ -25,6 +27,7 @@
     nixpkgs,
     home-manager,
     opencode,
+    sops-nix,
     ...
   }: {
     nixosConfigurations.tartiflex = nixpkgs.lib.nixosSystem {
@@ -32,16 +35,23 @@
         disko.nixosModules.disko
         impermanence.nixosModules.impermanence
         nixos-hardware.nixosModules.framework-16-amd-ai-300-series
+        sops-nix.nixosModules.sops
+        ./modules/rustic.nix
         ./disko-config.nix
         ./configuration.nix
         ./impermanence.nix
-        {
+        ./secrets.nix
+        rec {
+          users.groups = {
+            backups = {name = "backups";};
+          };
+
           users.users.aristide = {
             isNormalUser = true;
-            extraGroups = ["wheel" "video"];
+            extraGroups = ["wheel" "video" users.groups.backups.name];
             packages = [inputs.home-manager.packages."x86_64-linux".default];
             initialHashedPassword = "$y$j9T$Lvd3ywzpKCyzP1mv/2DTH0$wOMAjMrBWDZUHXArA7061AwnYsPKcF0vzOD6ZPxu6kD";
-            hashedPasswordFile = "/persist/passwords/aristide";
+            hashedPasswordFile = "/persist/secrets/passwords/aristide";
           };
 
           users.mutableUsers = false;

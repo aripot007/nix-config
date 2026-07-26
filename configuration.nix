@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./backups.nix
   ];
 
   security.sudo.extraConfig = "Defaults lecture = never";
@@ -37,6 +38,12 @@
   console.keyMap = "fr";
   services.xserver.xkb.layout = "fr";
   services.xserver.xkb.options = "eurosign:e,caps:escape";
+
+  services.tailscale = {
+    enable = true;
+  };
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
 
   # Touchpad support
   # services.libinput.enable = true;

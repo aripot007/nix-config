@@ -88,6 +88,32 @@ in {
     set $down j
     set $up k
     set $right l
+
+    set $ws1 1
+    set $ws2 2
+    set $ws3 3
+    set $ws4 4
+    set $ws5 5
+    set $ws6 6
+    set $ws6 6
+    set $ws7 7
+    set $ws8 8
+    set $ws9 9
+    set $ws10 0
+
+    # azerty
+    # set $ws1 ampersand
+    # set $ws2 eacute
+    # set $ws3 quotedbl
+    # set $ws4 apostrophe
+    # set $ws5 parenleft
+    # set $ws6 minus
+    # set $ws7 egrave
+    # set $ws8 underscore
+    # set $ws9 ccedilla
+    # set $ws10 agrave
+
+
     set $term foot
     set $menu fuzzel | xargs swaymsg exec --
 
@@ -108,8 +134,8 @@ in {
     }
 
     input type:keyboard {
-        xkb_layout "fr"
-        xkb_variant "azerty"
+        # xkb_layout "en"
+        # xkb_variant "azerty"
         xkb_numlock enabled
         xkb_options compose:menu
     }
@@ -148,27 +174,27 @@ in {
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
 
-    bindsym $mod+ampersand workspace 1
-    bindsym $mod+eacute workspace 2
-    bindsym $mod+quotedbl workspace 3
-    bindsym $mod+apostrophe workspace 4
-    bindsym $mod+parenleft workspace 5
-    bindsym $mod+minus workspace 6
-    bindsym $mod+egrave workspace 7
-    bindsym $mod+underscore workspace 8
-    bindsym $mod+ccedilla workspace 9
-    bindsym $mod+agrave workspace 10
+    bindsym $mod+$ws1 workspace 1
+    bindsym $mod+$ws2 workspace 2
+    bindsym $mod+$ws3 workspace 3
+    bindsym $mod+$ws4 workspace 4
+    bindsym $mod+$ws5 workspace 5
+    bindsym $mod+$ws6 workspace 6
+    bindsym $mod+$ws7 workspace 7
+    bindsym $mod+$ws8 workspace 8
+    bindsym $mod+$ws9 workspace 9
+    bindsym $mod+$ws10 workspace 10
 
-    bindsym $mod+Shift+ampersand move container to workspace 1
-    bindsym $mod+Shift+eacute move container to workspace 2
-    bindsym $mod+Shift+quotedbl move container to workspace 3
-    bindsym $mod+Shift+apostrophe move container to workspace 4
-    bindsym $mod+Shift+parenleft move container to workspace 5
-    bindsym $mod+Shift+minus move container to workspace 6
-    bindsym $mod+Shift+egrave move container to workspace 7
-    bindsym $mod+Shift+underscore move container to workspace 8
-    bindsym $mod+Shift+ccedilla move container to workspace 9
-    bindsym $mod+Shift+agrave move container to workspace 10
+    bindsym $mod+Shift+$ws1 move container to workspace 1
+    bindsym $mod+Shift+$ws2 move container to workspace 2
+    bindsym $mod+Shift+$ws3 move container to workspace 3
+    bindsym $mod+Shift+$ws4 move container to workspace 4
+    bindsym $mod+Shift+$ws5 move container to workspace 5
+    bindsym $mod+Shift+$ws6 move container to workspace 6
+    bindsym $mod+Shift+$ws7 move container to workspace 7
+    bindsym $mod+Shift+$ws8 move container to workspace 8
+    bindsym $mod+Shift+$ws9 move container to workspace 9
+    bindsym $mod+Shift+$ws10 move container to workspace 10
 
     bindsym $mod+b splith
     bindsym $mod+v splitv
