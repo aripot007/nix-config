@@ -136,9 +136,33 @@ in {
           # nvim
           "!/.local/share/nvim/lazy/"
           "!/.local/share/nvim/mason/"
+          "!/.local/share/nvim/site/"
+
+          # Steam
+          "!/.local/share/Steam/*"
+          "/.local/share/Steam/steamapps/compatdata/"
+          "!/.steam/"
+          "!/.steampid"
+          "!/.steampath"
         ];
     };
   };
+
+  # systemd.services."backups" = {
+  #   restartIfChanged = false;
+  #   wants = ["network-online.target"];
+  #   after = ["network-online.target"];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     RemainAfterExit = true;
+  #     RuntimeDirectory = "rustic-backups";
+  #     CacheDirectory = "rustic-backups";
+  #     CacheDirectoryMode = "0700";
+  #     PrivateTmp = true;
+  #     ExecStart = [
+  #     ];
+  #   };
+  # };
 
   # services.restic.backups = let
   # in {
