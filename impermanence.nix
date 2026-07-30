@@ -69,6 +69,7 @@
     directories = [
       "/var/lib/nixos"
       "/etc/NetworkManager/system-connections"
+      "/var/lib/tailscale/"
     ];
     files = [
       "/etc/machine-id"
