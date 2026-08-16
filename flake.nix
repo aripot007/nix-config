@@ -18,6 +18,12 @@
     niri.url = "github:sodiboo/niri-flake";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    creamlinux-installer = {
+      type = "github";
+      owner = "Novattz";
+      repo = "creamlinux-installer";
+      flake = false;
+    };
   };
   outputs = inputs @ {
     self,
@@ -26,11 +32,14 @@
     impermanence,
     nixpkgs,
     home-manager,
+    creamlinux-installer,
     opencode,
     sops-nix,
     ...
   }: {
     nixosConfigurations.tartiflex = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+
       modules = [
         disko.nixosModules.disko
         impermanence.nixosModules.impermanence

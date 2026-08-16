@@ -144,6 +144,9 @@ in {
           "!/.steam/"
           "!/.steampid"
           "!/.steampath"
+
+          # Steam games
+          "/.config/unity3d" # Overcooked
         ];
     };
   };

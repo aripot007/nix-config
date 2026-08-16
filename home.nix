@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }: let
@@ -52,6 +53,12 @@ in {
 
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles_dir}/nvim";
 
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "steam-unwrapped"
+      "discord"
+    ];
+
   home.packages = with pkgs; [
     waybar
     swaylock
@@ -68,7 +75,27 @@ in {
     # pulseaudio
     wob
     # inputs.opencode.packages.${pkgs.system}.default
+    discord
+    alsa-utils
+    libX11.dev
+    flitter
+    wineWow64Packages.stable
+    libresplit
+    prismlauncher
   ];
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-livesplit-one
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi #optional AMD hardware acceleration
+      obs-gstreamer
+      obs-vkcapture
+    ];
+  };
 
   programs.kitty.enable = true;
 
@@ -89,29 +116,29 @@ in {
     set $up k
     set $right l
 
-    set $ws1 1
-    set $ws2 2
-    set $ws3 3
-    set $ws4 4
-    set $ws5 5
-    set $ws6 6
-    set $ws6 6
-    set $ws7 7
-    set $ws8 8
-    set $ws9 9
-    set $ws10 0
+    # set $ws1 1
+    # set $ws2 2
+    # set $ws3 3
+    # set $ws4 4
+    # set $ws5 5
+    # set $ws6 6
+    # set $ws6 6
+    # set $ws7 7
+    # set $ws8 8
+    # set $ws9 9
+    # set $ws10 0
 
     # azerty
-    # set $ws1 ampersand
-    # set $ws2 eacute
-    # set $ws3 quotedbl
-    # set $ws4 apostrophe
-    # set $ws5 parenleft
-    # set $ws6 minus
-    # set $ws7 egrave
-    # set $ws8 underscore
-    # set $ws9 ccedilla
-    # set $ws10 agrave
+    set $ws1 ampersand
+    set $ws2 eacute
+    set $ws3 quotedbl
+    set $ws4 apostrophe
+    set $ws5 parenleft
+    set $ws6 minus
+    set $ws7 egrave
+    set $ws8 underscore
+    set $ws9 ccedilla
+    set $ws10 agrave
 
 
     set $term foot
@@ -134,8 +161,8 @@ in {
     }
 
     input type:keyboard {
-        # xkb_layout "en"
-        # xkb_variant "azerty"
+        xkb_layout "fr"
+        xkb_variant "azerty"
         xkb_numlock enabled
         xkb_options compose:menu
     }
