@@ -46,9 +46,12 @@
   programs.sway.enable = true;
 
   # Configure keymaps
-  console.keyMap = "fr";
-  services.xserver.xkb.layout = "fr";
-  services.xserver.xkb.options = "eurosign:e,caps:escape";
+  # console.keyMap = "fr";
+  # services.xserver.xkb.layout = "fr";
+  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+  console.keyMap = "en";
+  services.xserver.xkb.layout = "us";
+  # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Tailscale
 

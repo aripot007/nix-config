@@ -51,6 +51,15 @@ in {
   programs.lazygit.enable = true;
   programs.chromium.enable = true;
 
+  programs.obsidian = {
+    enable = true;
+    vaults = {
+      "perso" = {
+        enable = true;
+      };
+    };
+  };
+
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles_dir}/nvim";
 
   nixpkgs.config.allowUnfreePredicate = pkg:
