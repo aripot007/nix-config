@@ -32,7 +32,12 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "tartiflex";
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    plugins = with pkgs; [
+      networkmanager-openconnect
+    ];
+  };
 
   time.timeZone = "Canada/Eastern";
 
@@ -99,6 +104,7 @@
     git
     steam-run
     (import inputs.creamlinux-installer {inherit pkgs;})
+    openconnect
   ];
 
   programs.steam = {

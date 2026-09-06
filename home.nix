@@ -51,15 +51,15 @@ in {
   programs.lazygit.enable = true;
   programs.chromium.enable = true;
 
-  programs.obsidian = {
-    enable = true;
-    vaults = {
-      "perso" = {
-        enable = true;
-      };
-    };
-  };
-
+  # programs.obsidian = {
+  #   enable = true;
+  #   vaults = {
+  #     "perso" = {
+  #       enable = true;
+  #     };
+  #   };
+  # };
+  #
   xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles_dir}/nvim";
 
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -83,7 +83,7 @@ in {
     # alsa-utils
     # pulseaudio
     wob
-    # inputs.opencode.packages.${pkgs.system}.default
+    inputs.opencode.packages.${pkgs.system}.default
     discord
     alsa-utils
     libX11.dev
@@ -91,7 +91,15 @@ in {
     wineWow64Packages.stable
     libresplit
     prismlauncher
+    # openconnect
   ];
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
 
   programs.obs-studio = {
     enable = true;
