@@ -15,20 +15,14 @@
   den.aspects.aristide = {
     includes = [den.batteries.define-user den.batteries.primary-user];
     homeManager = {pkgs, ...}: {
-      home.stateVersion = "24.05";
-      home.packages = [pkgs.vim];
+      home.packages = [pkgs.vim pkgs.cowsay];
     };
   };
 
-  den.homes.x86_64-linux."aristide@tartiflex" = {
+  den.homes.x86_64-linux."aristide@tartiflex" = rec {
     # Home-manager requires 'pkgs' instance
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     extraSpecialArgs = {inherit inputs;};
-    modules = [
-      ../home.nix
-      ../git.nix
-      ../firefox.nix
-      ../niri.nix
-    ];
+    home.packages = [pkgs.lolcat];
   };
 }

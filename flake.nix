@@ -88,6 +88,10 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs;};
         modules = [
+          ./home.nix
+          ./git.nix
+          ./firefox.nix
+          ./niri.nix
           den.den.homes.x86_64-linux."aristide@tartiflex".mainModule
         ];
       };
