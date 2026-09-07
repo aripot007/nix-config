@@ -1,5 +1,8 @@
 {
   inputs = {
+    import-tree.url = "github:denful/import-tree";
+    den.url = "github:denful/den";
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixos-hardware = {
       url = "github:NixOs/nixos-hardware";
@@ -36,7 +39,15 @@
     opencode,
     sops-nix,
     ...
-  }: {
+  }: let
+    den =
+      (inputs.nixpkgs.lib.evalModules {
+        modules = [(inputs.import-tree ./modules)];
+        specialArgs.inputs = inputs;
+      }).config;
+
+    inherit (den.den.hosts.x86_64-linux) tartiflex;
+  in {
     nixosConfigurations.tartiflex = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
 
@@ -45,7 +56,7 @@
         impermanence.nixosModules.impermanence
         nixos-hardware.nixosModules.framework-16-amd-ai-300-series
         sops-nix.nixosModules.sops
-        ./modules/rustic.nix
+        ./rustic.nix
         ./disko-config.nix
         ./configuration.nix
         ./impermanence.nix
@@ -67,19 +78,17 @@
 
           hardware.inputmodule.enable = true;
         }
+
+        tartiflex.mainModule
       ];
     };
 
     homeConfigurations = {
       "aristide@tartiflex" = home-manager.lib.homeManagerConfiguration {
-        # Home-manager requires 'pkgs' instance
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs;};
         modules = [
-          ./home.nix
-          ./git.nix
-          ./firefox.nix
-          ./niri.nix
+          den.den.homes.x86_64-linux."aristide@tartiflex".mainModule
         ];
       };
     };
