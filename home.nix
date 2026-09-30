@@ -92,6 +92,9 @@ in {
     libresplit
     prismlauncher
     # openconnect
+    kubectl
+    kubelogin-oidc
+    fluxcd
   ];
 
   programs.direnv = {

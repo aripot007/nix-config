@@ -7,7 +7,7 @@
 
   den.hosts.x86_64-linux.tartiflex.users.aristide = {};
 
-  den.aspects.igloo = {
+  den.aspects.tartiflex = {
     includes = [den.batteries.hostname];
     nixos = {pkgs, ...}: {environment.systemPackages = [pkgs.hello];};
   };
