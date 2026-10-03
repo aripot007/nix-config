@@ -95,6 +95,9 @@ in {
     kubectl
     kubelogin-oidc
     fluxcd
+
+    cargo
+    rustc
   ];
 
   programs.direnv = {
