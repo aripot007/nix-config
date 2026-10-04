@@ -66,6 +66,7 @@ in {
     builtins.elem (lib.getName pkg) [
       "steam-unwrapped"
       "discord"
+      "terraform"
     ];
 
   home.packages = with pkgs; [
@@ -95,6 +96,7 @@ in {
     kubectl
     kubelogin-oidc
     fluxcd
+    terraform
 
     cargo
     rustc
