@@ -97,10 +97,18 @@ in {
     kubelogin-oidc
     fluxcd
     terraform
+    k9s
+
+    musescore
+    gcc
 
     cargo
     rustc
   ];
+
+  programs.go = {
+    enable = true;
+  };
 
   programs.direnv = {
     enable = true;
@@ -141,29 +149,29 @@ in {
     set $up k
     set $right l
 
-    # set $ws1 1
-    # set $ws2 2
-    # set $ws3 3
-    # set $ws4 4
-    # set $ws5 5
-    # set $ws6 6
-    # set $ws6 6
-    # set $ws7 7
-    # set $ws8 8
-    # set $ws9 9
-    # set $ws10 0
+    set $ws1 1
+    set $ws2 2
+    set $ws3 3
+    set $ws4 4
+    set $ws5 5
+    set $ws6 6
+    set $ws6 6
+    set $ws7 7
+    set $ws8 8
+    set $ws9 9
+    set $ws10 0
 
-    # azerty
-    set $ws1 ampersand
-    set $ws2 eacute
-    set $ws3 quotedbl
-    set $ws4 apostrophe
-    set $ws5 parenleft
-    set $ws6 minus
-    set $ws7 egrave
-    set $ws8 underscore
-    set $ws9 ccedilla
-    set $ws10 agrave
+    # # azerty
+    # set $ws1 ampersand
+    # set $ws2 eacute
+    # set $ws3 quotedbl
+    # set $ws4 apostrophe
+    # set $ws5 parenleft
+    # set $ws6 minus
+    # set $ws7 egrave
+    # set $ws8 underscore
+    # set $ws9 ccedilla
+    # set $ws10 agrave
 
 
     set $term foot

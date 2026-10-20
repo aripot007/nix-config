@@ -20,6 +20,7 @@
       };
 
       search = {
+        force = true; # search.json.mozlz4 gets clobbered on startup otherwise
         engines = {
           "Nix Packages" = {
             urls = [
@@ -125,6 +126,7 @@
           installation_mode = "force_installed";
           updates_disabled = false;
           default_area = "navbar";
+          allowed_in_private_browsing = true;
         };
 
         # Privacy badger
